@@ -1,6 +1,6 @@
 import { Application, Graphics } from "pixi.js";
 
-function addCell(
+function renderCell(
   app: Application,
   squareArea: number,
   amountOfRect: number,
@@ -21,10 +21,10 @@ function addCell(
 
   app.stage.addChild(graphics);
 
-  addCell(app, squareArea, amountOfRect - 1, verticalShift);
+  renderCell(app, squareArea, amountOfRect - 1, verticalShift);
 }
 
-function addRow(app: Application, squareArea: number, amountOfRows: number) {
+function renderRow(app: Application, squareArea: number, amountOfRows: number) {
   if (amountOfRows <= 0) return;
 
   const amountOfRectRatio = app.screen.width / squareArea;
@@ -32,13 +32,13 @@ function addRow(app: Application, squareArea: number, amountOfRows: number) {
 
   const verticalShift = (amountOfRows - 1) * squareArea;
 
-  addCell(app, squareArea, amountOfRect, verticalShift);
+  renderCell(app, squareArea, amountOfRect, verticalShift);
 
-  addRow(app, squareArea, amountOfRows - 1);
+  renderRow(app, squareArea, amountOfRows - 1);
 }
 
-export function addCellsGrid(app: Application, squareArea: number) {
+export function renderGrid(app: Application, squareArea: number) {
   const amountOfRows = app.screen.height / squareArea;
 
-  addRow(app, squareArea, amountOfRows);
+  renderRow(app, squareArea, amountOfRows);
 }

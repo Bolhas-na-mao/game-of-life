@@ -1,5 +1,5 @@
 import { Application } from "pixi.js";
-import { addCellsGrid } from "./utils/cell";
+import { renderGrid } from "./utils/cell";
 
 (async () => {
   const app = new Application();
@@ -8,5 +8,5 @@ import { addCellsGrid } from "./utils/cell";
 
   document.getElementById("pixi-container")!.appendChild(app.canvas);
 
-  addCellsGrid(app, 25);
+  renderGrid(app, 25);
 })();
