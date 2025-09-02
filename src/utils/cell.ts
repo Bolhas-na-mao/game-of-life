@@ -28,7 +28,7 @@ function addRow(app: Application, squareArea: number, amountOfRows: number) {
   if (amountOfRows <= 0) return;
 
   const amountOfRectRatio = app.screen.width / squareArea;
-  const amountOfRect = Math.floor(amountOfRectRatio);
+  const amountOfRect = Math.ceil(amountOfRectRatio);
 
   const verticalShift = (amountOfRows - 1) * squareArea;
 
