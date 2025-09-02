@@ -1,4 +1,5 @@
-import { Application, Graphics } from "pixi.js";
+import { Application } from "pixi.js";
+import { addCellsGrid } from "./utils/cell";
 
 (async () => {
   const app = new Application();
@@ -7,12 +8,5 @@ import { Application, Graphics } from "pixi.js";
 
   document.getElementById("pixi-container")!.appendChild(app.canvas);
 
-  const graphics = new Graphics();
-  graphics.rect(10, 10, 50, 50).stroke({ width: 2, color: 0xffffff });
-
-  app.stage.addChild(graphics);
-
-  graphics.position.set(0, 0);
-
-  app.stage.addChild(graphics);
+  addCellsGrid(app, 25);
 })();
