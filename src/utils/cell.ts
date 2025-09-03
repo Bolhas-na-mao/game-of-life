@@ -6,8 +6,6 @@ function toggleCell(index: number) {
   const cell = cells[index];
 
   cell.fill(0xffffff);
-
-  console.log(cell);
 }
 
 function renderCell(
@@ -44,7 +42,6 @@ function renderGrid(app: Application, squareArea: number) {
   for (let i = 0; amountOfRows > i; i++) {
     renderRow(app, squareArea, i);
   }
-  toggleCell(3);
 }
 
 export { renderGrid, toggleCell };
