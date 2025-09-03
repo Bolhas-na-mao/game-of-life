@@ -1,4 +1,14 @@
-import { Application, Graphics } from "pixi.js";
+import { Application, Graphics, GraphicsContext } from "pixi.js";
+
+const cells: GraphicsContext[] = [];
+
+function toggleCell(index: number) {
+  const cell = cells[index];
+
+  cell.fill(0xffffff);
+
+  console.log(cell);
+}
 
 function renderCell(
   app: Application,
@@ -6,16 +16,18 @@ function renderCell(
   verticalShift: number,
   index: number
 ) {
-  const graphics = new Graphics();
-
   const horizontalShift = index * squareArea;
 
-  graphics
+  const context = new GraphicsContext()
     .rect(horizontalShift, verticalShift, squareArea, squareArea)
     .stroke({ width: 1, color: 0x3b3a3a });
 
-  app.stage.addChild(graphics);
+  const cell = new Graphics(context);
+
+  cells.push(context);
+  app.stage.addChild(cell);
 }
+
 function renderRow(app: Application, squareArea: number, index: number) {
   const amountOfCells = Math.ceil(app.screen.width / squareArea);
 
@@ -25,10 +37,14 @@ function renderRow(app: Application, squareArea: number, index: number) {
     renderCell(app, squareArea, verticalShift, i);
   }
 }
-export function renderGrid(app: Application, squareArea: number) {
+
+function renderGrid(app: Application, squareArea: number) {
   const amountOfRows = app.screen.height / squareArea;
 
   for (let i = 0; amountOfRows > i; i++) {
     renderRow(app, squareArea, i);
   }
+  toggleCell(3);
 }
+
+export { renderGrid, toggleCell };
