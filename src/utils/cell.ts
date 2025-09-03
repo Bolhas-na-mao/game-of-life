@@ -1,11 +1,12 @@
 import { Application, Graphics, GraphicsContext } from "pixi.js";
+import colors from "../ui/colors";
 
 const cells: GraphicsContext[] = [];
 
 function toggleCell(index: number) {
   const cell = cells[index];
 
-  cell.fill(0xffffff);
+  cell.fill(colors.active);
 }
 
 function renderCell(
@@ -18,7 +19,7 @@ function renderCell(
 
   const context = new GraphicsContext()
     .rect(horizontalShift, verticalShift, squareArea, squareArea)
-    .stroke({ width: 1, color: 0x3b3a3a });
+    .stroke({ width: 1, color: colors.foreground });
 
   const cell = new Graphics(context);
 
