@@ -1,7 +1,7 @@
-import { Application, Graphics, GraphicsContext } from "pixi.js";
+import { Application, Graphics, Rectangle } from "pixi.js";
 import colors from "../ui/colors";
 
-const cells: GraphicsContext[] = [];
+const cells: Graphics[] = [];
 
 function toggleCell(index: number) {
   const cell = cells[index];
@@ -17,13 +17,25 @@ function renderCell(
 ) {
   const horizontalShift = index * squareArea;
 
-  const context = new GraphicsContext()
+  const cell = new Graphics()
     .rect(horizontalShift, verticalShift, squareArea, squareArea)
     .stroke({ width: 1, color: colors.foreground });
 
-  const cell = new Graphics(context);
+  cell.eventMode = "static";
 
-  cells.push(context);
+  cell.hitArea = new Rectangle(
+    horizontalShift,
+    verticalShift,
+    squareArea,
+    squareArea
+  );
+
+  cells.push(cell);
+
+  const cellIndex = cells.length - 1;
+
+  cell.on("pointertap", () => toggleCell(cellIndex));
+
   app.stage.addChild(cell);
 }
 
