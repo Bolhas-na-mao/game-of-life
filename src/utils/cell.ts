@@ -1,12 +1,23 @@
-import { Application, Graphics, GraphicsContext } from "pixi.js";
+import { Application, Graphics, Rectangle, GraphicsContext } from "pixi.js";
 import colors from "../ui/colors";
 
-const cells: GraphicsContext[] = [];
+const cells: {
+  graphic: Graphics;
+  activeContext: GraphicsContext;
+  inactiveContext: GraphicsContext;
+  isActive: boolean;
+}[] = [];
 
 function toggleCell(index: number) {
   const cell = cells[index];
 
-  cell.fill(colors.active);
+  if (!cell.isActive) {
+    cell.graphic.context = cell.activeContext;
+    cell.isActive = true;
+  } else {
+    cell.graphic.context = cell.inactiveContext;
+    cell.isActive = false;
+  }
 }
 
 function renderCell(
@@ -17,13 +28,41 @@ function renderCell(
 ) {
   const horizontalShift = index * squareArea;
 
-  const context = new GraphicsContext()
-    .rect(horizontalShift, verticalShift, squareArea, squareArea)
+  const base = new GraphicsContext().rect(
+    horizontalShift,
+    verticalShift,
+    squareArea,
+    squareArea
+  );
+
+  const inactiveContext = base
+    .clone()
     .stroke({ width: 1, color: colors.foreground });
 
-  const cell = new Graphics(context);
+  const activeContext = base.clone().fill(colors.active);
 
-  cells.push(context);
+  const cell = new Graphics(inactiveContext);
+
+  cell.eventMode = "static";
+
+  cell.hitArea = new Rectangle(
+    horizontalShift,
+    verticalShift,
+    squareArea,
+    squareArea
+  );
+
+  cells.push({
+    graphic: cell,
+    isActive: false,
+    activeContext,
+    inactiveContext,
+  });
+
+  const cellIndex = cells.length - 1;
+
+  cell.on("pointertap", () => toggleCell(cellIndex));
+
   app.stage.addChild(cell);
 }
 
