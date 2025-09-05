@@ -11,13 +11,11 @@ const cells: {
 function toggleCell(index: number) {
   const cell = cells[index];
 
-  if (!cell.isActive) {
-    cell.graphic.context = cell.activeContext;
-    cell.isActive = true;
-  } else {
-    cell.graphic.context = cell.inactiveContext;
-    cell.isActive = false;
-  }
+  cell.isActive = !cell.isActive;
+
+  cell.graphic.context = cell.isActive
+    ? cell.activeContext
+    : cell.inactiveContext;
 }
 
 function renderCell(
