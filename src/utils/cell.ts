@@ -37,7 +37,7 @@ function renderCell(
     .clone()
     .stroke({ width: 1, color: colors.foreground });
 
-  const activeContext = base.clone().fill(colors.active);
+  const activeContext = base.clone().fill(colors.alive);
 
   const cell = new Graphics(inactiveContext);
 
