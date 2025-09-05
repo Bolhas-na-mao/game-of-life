@@ -3,19 +3,17 @@ import colors from "../ui/colors";
 
 const cells: {
   graphic: Graphics;
-  activeContext: GraphicsContext;
-  inactiveContext: GraphicsContext;
-  isActive: boolean;
+  aliveContext: GraphicsContext;
+  deadContext: GraphicsContext;
+  isAlive: boolean;
 }[] = [];
 
 function toggleCell(index: number) {
   const cell = cells[index];
 
-  cell.isActive = !cell.isActive;
+  cell.isAlive = !cell.isAlive;
 
-  cell.graphic.context = cell.isActive
-    ? cell.activeContext
-    : cell.inactiveContext;
+  cell.graphic.context = cell.isAlive ? cell.aliveContext : cell.deadContext;
 }
 
 function renderCell(
@@ -33,13 +31,13 @@ function renderCell(
     squareArea
   );
 
-  const inactiveContext = base
+  const deadContext = base
     .clone()
     .stroke({ width: 1, color: colors.foreground });
 
-  const activeContext = base.clone().fill(colors.alive);
+  const aliveContext = base.clone().fill(colors.alive);
 
-  const cell = new Graphics(inactiveContext);
+  const cell = new Graphics(deadContext);
 
   cell.eventMode = "static";
 
@@ -52,9 +50,9 @@ function renderCell(
 
   cells.push({
     graphic: cell,
-    isActive: false,
-    activeContext,
-    inactiveContext,
+    isAlive: false,
+    aliveContext,
+    deadContext,
   });
 
   const cellIndex = cells.length - 1;
