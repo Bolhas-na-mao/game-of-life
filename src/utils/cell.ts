@@ -1,12 +1,23 @@
-import { Application, Graphics, Rectangle } from "pixi.js";
+import { Application, Graphics, Rectangle, GraphicsContext } from "pixi.js";
 import colors from "../ui/colors";
 
-const cells: Graphics[] = [];
+const cells: {
+  graphic: Graphics;
+  activeContext: GraphicsContext;
+  inactiveContext: GraphicsContext;
+  isActive: boolean;
+}[] = [];
 
 function toggleCell(index: number) {
   const cell = cells[index];
 
-  cell.fill(colors.active);
+  if (!cell.isActive) {
+    cell.graphic.context = cell.activeContext;
+    cell.isActive = true;
+  } else {
+    cell.graphic.context = cell.inactiveContext;
+    cell.isActive = false;
+  }
 }
 
 function renderCell(
@@ -17,9 +28,20 @@ function renderCell(
 ) {
   const horizontalShift = index * squareArea;
 
-  const cell = new Graphics()
-    .rect(horizontalShift, verticalShift, squareArea, squareArea)
+  const base = new GraphicsContext().rect(
+    horizontalShift,
+    verticalShift,
+    squareArea,
+    squareArea
+  );
+
+  const inactiveContext = base
+    .clone()
     .stroke({ width: 1, color: colors.foreground });
+
+  const activeContext = base.clone().fill(colors.active);
+
+  const cell = new Graphics(inactiveContext);
 
   cell.eventMode = "static";
 
@@ -30,7 +52,12 @@ function renderCell(
     squareArea
   );
 
-  cells.push(cell);
+  cells.push({
+    graphic: cell,
+    isActive: false,
+    activeContext,
+    inactiveContext,
+  });
 
   const cellIndex = cells.length - 1;
 
