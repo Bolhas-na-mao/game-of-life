@@ -11,6 +11,8 @@ const cells: {
 function toggleCell(index: number) {
   const cell = cells[index];
 
+  if (!cell) return;
+
   cell.isAlive = !cell.isAlive;
 
   cell.graphic.context = cell.isAlive ? cell.aliveContext : cell.deadContext;
