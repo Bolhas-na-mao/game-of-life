@@ -1,4 +1,5 @@
 import { Assets, Container, Sprite, type Application } from "pixi.js";
+import scale from "../utils/scale";
 
 export async function renderStartButton(app: Application) {
   const texture = await Assets.load("assets/start_button.png");
@@ -10,9 +11,9 @@ export async function renderStartButton(app: Application) {
   buttonContainer.zIndex = 1;
   app.stage.addChild(buttonContainer);
 
-  sprite.position.set(app.screen.width / 2 - 100, app.screen.height / 1.2);
+  sprite.position.set(app.screen.width / 2, app.screen.height / 1.15);
 
-  sprite.scale.set(0.4);
+  scale.button(sprite);
 
   buttonContainer.addChild(sprite);
 }
