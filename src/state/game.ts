@@ -1,5 +1,5 @@
 import type { Statuses } from "../types/game";
 
-const status: Statuses = "idle";
+let status: Statuses = "idle";
 
 export const game = { status };
