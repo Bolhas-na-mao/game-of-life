@@ -1,7 +1,7 @@
 import { Sprite } from "pixi.js";
 import gsap from "gsap";
 
-function button(sprite: Sprite) {
+function addProperties(sprite: Sprite) {
   const baseScale = 0.4;
   sprite.scale.set(baseScale);
 
@@ -30,4 +30,4 @@ function button(sprite: Sprite) {
   );
 }
 
-export default { button };
+export const button = { addProperties };
