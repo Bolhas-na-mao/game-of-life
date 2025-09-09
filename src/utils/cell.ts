@@ -1,8 +1,11 @@
 import { Application, Graphics, Rectangle, GraphicsContext } from "pixi.js";
 import colors from "../ui/colors";
 import { cells } from "../state/cell";
+import { game } from "../state/game";
 
 function toggleCell(index: number) {
+  if (game.status === "running") return;
+
   const cell = cells.current[index];
 
   if (!cell) return;
