@@ -17,7 +17,7 @@ export async function renderStartButton(app: Application) {
 
   button.addProperties(sprite);
 
-  sprite.on("pointertap", () => start());
+  sprite.once("pointertap", start);
 
   buttonContainer.addChild(sprite);
 }
