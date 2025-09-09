@@ -1,3 +1,3 @@
-export type Statuses = "paused" | "running" | "idle";
+export type Status = "paused" | "running" | "idle";
 
-export type Game = { status: Statuses };
+export type Game = { status: Status };
