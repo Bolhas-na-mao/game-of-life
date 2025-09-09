@@ -1,7 +1,7 @@
 import { Application } from "pixi.js";
-import { renderGrid } from "./utils/cell";
+import { renderGrid } from "./renderer/cell";
 import colors from "./ui/colors";
-import { renderStartButton } from "./renderer/renderStartButton";
+import { renderStartButton } from "./renderer/startButton";
 
 (async () => {
   const app = new Application();
