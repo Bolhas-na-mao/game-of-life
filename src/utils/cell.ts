@@ -1,12 +1,8 @@
 import { Application, Graphics, Rectangle, GraphicsContext } from "pixi.js";
 import colors from "../ui/colors";
+import type { Cell } from "../types/cells";
 
-const cells: {
-  graphic: Graphics;
-  aliveContext: GraphicsContext;
-  deadContext: GraphicsContext;
-  isAlive: boolean;
-}[] = [];
+const cells: Cell[] = [];
 
 function toggleCell(index: number) {
   const cell = cells[index];
