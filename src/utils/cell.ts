@@ -1,11 +1,9 @@
 import { Application, Graphics, Rectangle, GraphicsContext } from "pixi.js";
 import colors from "../ui/colors";
-import type { Cell } from "../types/cells";
-
-const cells: Cell[] = [];
+import { cells } from "../state/cell";
 
 function toggleCell(index: number) {
-  const cell = cells[index];
+  const cell = cells.current[index];
 
   if (!cell) return;
 
@@ -46,14 +44,14 @@ function renderCell(
     squareArea
   );
 
-  cells.push({
+  cells.current.push({
     graphic: cell,
     isAlive: false,
     aliveContext,
     deadContext,
   });
 
-  const cellIndex = cells.length - 1;
+  const cellIndex = cells.current.length - 1;
 
   cell.on("pointertap", () => toggleCell(cellIndex));
 
