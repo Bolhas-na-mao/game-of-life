@@ -1,15 +1,12 @@
 import { Application, Graphics, Rectangle, GraphicsContext } from "pixi.js";
 import colors from "../ui/colors";
-
-const cells: {
-  graphic: Graphics;
-  aliveContext: GraphicsContext;
-  deadContext: GraphicsContext;
-  isAlive: boolean;
-}[] = [];
+import { cells } from "../state/cell";
+import { game } from "../state/game";
 
 function toggleCell(index: number) {
-  const cell = cells[index];
+  if (game.status === "running") return;
+
+  const cell = cells.current[index];
 
   if (!cell) return;
 
@@ -50,14 +47,14 @@ function renderCell(
     squareArea
   );
 
-  cells.push({
+  cells.current.push({
     graphic: cell,
     isAlive: false,
     aliveContext,
     deadContext,
   });
 
-  const cellIndex = cells.length - 1;
+  const cellIndex = cells.current.length - 1;
 
   cell.on("pointertap", () => toggleCell(cellIndex));
 
