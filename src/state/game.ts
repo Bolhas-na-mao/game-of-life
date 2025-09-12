@@ -1,5 +1,3 @@
-import type { Game, Status } from "../types/game";
+import type { Game } from "../types/game";
 
-let status: Status = "idle";
-
-export const game: Game = { status };
+export const game: Game = { status: "idle" };

@@ -1,26 +1,26 @@
-import { Application, Graphics, Rectangle, GraphicsContext } from "pixi.js";
+import { Graphics, Rectangle, GraphicsContext } from "pixi.js";
 import colors from "../ui/colors";
 import { cells } from "../state/cell";
 import { game } from "../state/game";
+import { eventHandler } from "../utils/events";
+import { app } from "../app";
 
-function toggleCell(index: number) {
+function toggleCell(index: number, forceState?: boolean) {
   if (game.status === "running") return;
 
   const cell = cells.current[index];
 
   if (!cell) return;
 
-  cell.isAlive = !cell.isAlive;
+  const newState = forceState !== undefined ? forceState : !cell.isAlive;
 
-  cell.graphic.context = cell.isAlive ? cell.aliveContext : cell.deadContext;
+  if (cell.isAlive !== newState) {
+    cell.isAlive = newState;
+    cell.graphic.context = cell.isAlive ? cell.aliveContext : cell.deadContext;
+  }
 }
 
-function renderCell(
-  app: Application,
-  squareArea: number,
-  verticalShift: number,
-  index: number
-) {
+function renderCell(squareArea: number, verticalShift: number, index: number) {
   const horizontalShift = index * squareArea;
 
   const base = new GraphicsContext().rect(
@@ -56,26 +56,36 @@ function renderCell(
 
   const cellIndex = cells.current.length - 1;
 
-  cell.on("pointertap", () => toggleCell(cellIndex));
+  cell.on("pointerdown", () => eventHandler.pointerDown(cellIndex));
+  cell.on("pointerover", () => eventHandler.pointerOver(cellIndex));
+  cell.on("pointerup", () => eventHandler.pointerUp(cellIndex));
 
   app.stage.addChild(cell);
 }
 
-function renderRow(app: Application, squareArea: number, index: number) {
+function renderRow(squareArea: number, index: number) {
   const amountOfCells = Math.ceil(app.screen.width / squareArea);
+
+  cells.rowLength = amountOfCells;
 
   const verticalShift = index * squareArea;
 
   for (let i = 0; amountOfCells > i; i++) {
-    renderCell(app, squareArea, verticalShift, i);
+    renderCell(squareArea, verticalShift, i);
   }
 }
 
-function renderGrid(app: Application, squareArea: number) {
-  const amountOfRows = app.screen.height / squareArea;
+function renderGrid(squareArea: number) {
+  const amountOfRows = Math.ceil(app.screen.height / squareArea);
+
+  cells.columnLength = amountOfRows;
+
+  app.stage.eventMode = "static";
+  app.stage.on("pointerup", eventHandler.globalPointerUp);
+  app.stage.on("pointerupoutside", eventHandler.globalPointerUp);
 
   for (let i = 0; amountOfRows > i; i++) {
-    renderRow(app, squareArea, i);
+    renderRow(squareArea, i);
   }
 }
 
