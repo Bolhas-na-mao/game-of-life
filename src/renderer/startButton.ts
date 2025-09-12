@@ -1,6 +1,6 @@
 import { Assets, Container, Sprite, type Application } from "pixi.js";
-import { start } from "../controls/start";
 import { button } from "../utils/button";
+import { controls } from "../controls/start";
 
 export async function renderStartButton(app: Application) {
   const texture = await Assets.load("assets/start_button.png");
@@ -17,7 +17,7 @@ export async function renderStartButton(app: Application) {
 
   button.addProperties(sprite);
 
-  sprite.once("pointertap", start);
+  sprite.once("pointertap", controls.start);
 
   buttonContainer.addChild(sprite);
 }

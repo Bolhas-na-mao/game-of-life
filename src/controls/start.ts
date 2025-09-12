@@ -1,10 +1,16 @@
 import { createNextGen } from "../engine/cell";
 import { game } from "../state/game";
 
-export function start() {
-  game.status = "running";
+function start() {
+  if (game.status === "running") return;
 
-  console.log("started");
+  game.status = "running";
 
   createNextGen();
 }
+
+function pause() {
+  game.status = "paused";
+}
+
+export const controls = { start, pause };
