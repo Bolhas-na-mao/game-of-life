@@ -1,4 +1,5 @@
 import { cells } from "../state/cell";
+import { game } from "../state/game";
 import type { Neighbors } from "../types/cells";
 
 function checkNeighbors(index: number) {
@@ -48,6 +49,9 @@ function getNextState(statuses: string[], isAlive: boolean) {
 }
 
 export function createNextGen() {
+  if (game.status !== "running") return;
+  cells.next = [];
+
   for (let i = 0; cells.current.length > i; i++) {
     const statuses = checkNeighbors(i);
 
@@ -55,9 +59,15 @@ export function createNextGen() {
 
     const isAlive = getNextState(statuses, currentCell.isAlive);
 
-    currentCell.graphic.context = isAlive
-      ? currentCell.aliveContext
-      : currentCell.deadContext;
+    const hasChanged = currentCell.isAlive !== isAlive;
+
+    if (hasChanged) {
+      currentCell.graphic.context = isAlive
+        ? currentCell.aliveContext
+        : currentCell.deadContext;
+
+      currentCell.isAlive = isAlive;
+    }
 
     cells.next.push(currentCell);
   }
