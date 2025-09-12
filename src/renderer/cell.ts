@@ -64,6 +64,8 @@ function renderCell(
 function renderRow(app: Application, squareArea: number, index: number) {
   const amountOfCells = Math.ceil(app.screen.width / squareArea);
 
+  cells.rowLength = amountOfCells;
+
   const verticalShift = index * squareArea;
 
   for (let i = 0; amountOfCells > i; i++) {
@@ -72,7 +74,7 @@ function renderRow(app: Application, squareArea: number, index: number) {
 }
 
 function renderGrid(app: Application, squareArea: number) {
-  const amountOfRows = app.screen.height / squareArea;
+  const amountOfRows = Math.ceil(app.screen.height / squareArea);
 
   for (let i = 0; amountOfRows > i; i++) {
     renderRow(app, squareArea, i);
