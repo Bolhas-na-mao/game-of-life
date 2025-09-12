@@ -17,6 +17,40 @@ function checkNeighbors(index: number) {
   neighbors.left = index - 1;
   neighbors.right = index + 1;
 
+  // "<"" porque no index 99 rowLength vai ser 100
+  const isFirstRow = index < cells.rowLength;
+
+  // se for uma grid 10x10 > 9 x 10 = 90 se for igual ou maior a 90 está na última linha
+  const isLastRow = index >= (cells.columnLength - 1) * cells.rowLength;
+
+  const isFirstColumn = index === 0 || index % cells.rowLength === 0;
+
+  const isLastColumn = (index + 1) % cells.rowLength === 0;
+
+  if (isFirstRow) {
+    neighbors.topLeft = -1;
+    neighbors.top = -1;
+    neighbors.topRight = -1;
+  }
+
+  if (isFirstColumn) {
+    neighbors.topLeft = -1;
+    neighbors.left = -1;
+    neighbors.bottomLeft = -1;
+  }
+
+  if (isLastRow) {
+    neighbors.bottomLeft = -1;
+    neighbors.bottom = -1;
+    neighbors.bottomRight = -1;
+  }
+
+  if (isLastColumn) {
+    neighbors.topRight = -1;
+    neighbors.right = -1;
+    neighbors.bottomRight = -1;
+  }
+
   for (let neighbor of Object.values(neighbors)) {
     let status;
 
@@ -41,7 +75,7 @@ function checkNeighbors(index: number) {
 function getNextState(statuses: string[], isAlive: boolean) {
   const alive = statuses.filter((status) => status === "alive");
 
-  if (!isAlive) return alive.length === 3 ? true : false;
+  if (!isAlive) return alive.length === 3;
 
   if (alive.length < 2 || alive.length > 3) return false;
 
@@ -57,22 +91,24 @@ export function createNextGen() {
 
     const currentCell = cells.current[i];
 
-    const isAlive = getNextState(statuses, currentCell.isAlive);
+    const updatedCell = { ...currentCell };
 
-    const hasChanged = currentCell.isAlive !== isAlive;
+    const isAlive = getNextState(statuses, updatedCell.isAlive);
+
+    const hasChanged = updatedCell.isAlive !== isAlive;
 
     if (hasChanged) {
-      currentCell.graphic.context = isAlive
-        ? currentCell.aliveContext
-        : currentCell.deadContext;
+      updatedCell.graphic.context = isAlive
+        ? updatedCell.aliveContext
+        : updatedCell.deadContext;
 
-      currentCell.isAlive = isAlive;
+      updatedCell.isAlive = isAlive;
     }
 
-    cells.next.push(currentCell);
+    cells.next.push(updatedCell);
   }
 
   cells.current = cells.next;
 
-  setTimeout(() => createNextGen(), 2000);
+  setTimeout(() => createNextGen(), 1000);
 }
