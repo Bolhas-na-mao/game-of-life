@@ -5,5 +5,6 @@ const current: Cell[] = [];
 const next: Cell[] = [];
 
 let rowLength = 0;
+let columnLength = 0;
 
-export const cells = { current, next, rowLength };
+export const cells = { current, next, rowLength, columnLength };
