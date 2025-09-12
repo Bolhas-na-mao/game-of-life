@@ -110,5 +110,5 @@ export function createNextGen() {
 
   cells.current = cells.next;
 
-  setTimeout(() => createNextGen(), 1000);
+  setTimeout(() => createNextGen(), 500);
 }

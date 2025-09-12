@@ -1,8 +1,9 @@
-import { Application, Graphics, Rectangle, GraphicsContext } from "pixi.js";
+import { Graphics, Rectangle, GraphicsContext } from "pixi.js";
 import colors from "../ui/colors";
 import { cells } from "../state/cell";
 import { game } from "../state/game";
 import { eventHandler } from "../utils/events";
+import { app } from "../app";
 
 function toggleCell(index: number, forceState?: boolean) {
   if (game.status === "running") return;
@@ -19,13 +20,7 @@ function toggleCell(index: number, forceState?: boolean) {
   }
 }
 
-
-function renderCell(
-  app: Application,
-  squareArea: number,
-  verticalShift: number,
-  index: number
-) {
+function renderCell(squareArea: number, verticalShift: number, index: number) {
   const horizontalShift = index * squareArea;
 
   const base = new GraphicsContext().rect(
@@ -68,7 +63,7 @@ function renderCell(
   app.stage.addChild(cell);
 }
 
-function renderRow(app: Application, squareArea: number, index: number) {
+function renderRow(squareArea: number, index: number) {
   const amountOfCells = Math.ceil(app.screen.width / squareArea);
 
   cells.rowLength = amountOfCells;
@@ -76,11 +71,11 @@ function renderRow(app: Application, squareArea: number, index: number) {
   const verticalShift = index * squareArea;
 
   for (let i = 0; amountOfCells > i; i++) {
-    renderCell(app, squareArea, verticalShift, i);
+    renderCell(squareArea, verticalShift, i);
   }
 }
 
-function renderGrid(app: Application, squareArea: number) {
+function renderGrid(squareArea: number) {
   const amountOfRows = Math.ceil(app.screen.height / squareArea);
 
   cells.columnLength = amountOfRows;
@@ -90,7 +85,7 @@ function renderGrid(app: Application, squareArea: number) {
   app.stage.on("pointerupoutside", eventHandler.globalPointerUp);
 
   for (let i = 0; amountOfRows > i; i++) {
-    renderRow(app, squareArea, i);
+    renderRow(squareArea, i);
   }
 }
 
