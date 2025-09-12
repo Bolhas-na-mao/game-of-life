@@ -4,4 +4,6 @@ const current: Cell[] = [];
 
 const next: Cell[] = [];
 
-export const cells = { current, next };
+let rowLength = 0;
+
+export const cells = { current, next, rowLength };
