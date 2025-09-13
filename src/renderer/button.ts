@@ -5,37 +5,88 @@ import type { Status } from "../types/game";
 import { app } from "../app";
 
 let buttonContainer: Container;
-let buttonSprite: Sprite;
+let mainButtonSprite: Sprite;
+let infoButtonSprite: Sprite;
+let controlsButtonSprite: Sprite;
+let restartButtonSprite: Sprite;
+
 let startTexture: Texture;
 let pauseTexture: Texture;
+let controlsTexture: Texture;
+let infoTexture: Texture;
+let restartTexture: Texture;
+
+const BUTTON_SPACING = 160;
+const BUTTON_Y_POSITION_RATIO = 1.15;
 
 export async function setupButton() {
+  await loadTextures();
 
-  startTexture = await Assets.load("assets/start_button.png");
-  pauseTexture = await Assets.load("assets/pause_button.png");
+  createButtonContainer();
 
-  buttonContainer = new Container();
-  buttonContainer.zIndex = 1;
+  createButtons();
 
-  buttonSprite = new Sprite(startTexture);
-  buttonSprite.position.set(app.screen.width / 2, app.screen.height / 1.15);
-  button.addProperties(buttonSprite);
-
-  buttonContainer.addChild(buttonSprite);
   app.stage.addChild(buttonContainer);
 
   updateButton("idle");
 }
 
-export function updateButton(status: Status) {
+async function loadTextures() {
+  startTexture = await Assets.load("assets/start_button.png");
+  pauseTexture = await Assets.load("assets/pause_button.png");
+  controlsTexture = await Assets.load("assets/controls_button.png");
+  infoTexture = await Assets.load("assets/info_button.png");
+  restartTexture = await Assets.load("assets/restart_button.png");
+}
 
-  buttonSprite.off("pointertap");
+function createButtonContainer() {
+  buttonContainer = new Container();
+  buttonContainer.zIndex = 1;
+}
+
+function createButtons() {
+  const centerX = app.screen.width / 2;
+  const buttonY = app.screen.height / BUTTON_Y_POSITION_RATIO;
+
+  mainButtonSprite = new Sprite(startTexture);
+  mainButtonSprite.position.set(centerX, buttonY);
+  button.addProperties(mainButtonSprite);
+  buttonContainer.addChild(mainButtonSprite);
+
+  infoButtonSprite = new Sprite(infoTexture);
+  infoButtonSprite.position.set(centerX - BUTTON_SPACING, buttonY);
+  button.addProperties(infoButtonSprite);
+  buttonContainer.addChild(infoButtonSprite);
+
+  controlsButtonSprite = new Sprite(controlsTexture);
+  controlsButtonSprite.position.set(centerX + BUTTON_SPACING, buttonY);
+  button.addProperties(controlsButtonSprite);
+  buttonContainer.addChild(controlsButtonSprite);
+
+  restartButtonSprite = new Sprite(restartTexture);
+  restartButtonSprite.position.set(centerX + BUTTON_SPACING * 1.65, buttonY);
+  button.addProperties(restartButtonSprite);
+  buttonContainer.addChild(restartButtonSprite);
+}
+
+export function getButtons() {
+  return {
+    main: mainButtonSprite,
+    info: infoButtonSprite,
+    controls: controlsButtonSprite,
+    restart: restartButtonSprite,
+    container: buttonContainer,
+  };
+}
+
+export function updateButton(status: Status) {
+  mainButtonSprite.off("pointertap");
 
   if (status === "running") {
-    buttonSprite.texture = pauseTexture;
-    buttonSprite.on("pointertap", controls.pause);
+    mainButtonSprite.texture = pauseTexture;
+    mainButtonSprite.on("pointertap", controls.pause);
   } else {
-    buttonSprite.texture = startTexture;
-    buttonSprite.on("pointertap", controls.start);
+    mainButtonSprite.texture = startTexture;
+    mainButtonSprite.on("pointertap", controls.start);
   }
 }
