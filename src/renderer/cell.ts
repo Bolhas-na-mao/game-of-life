@@ -89,4 +89,14 @@ function renderGrid(squareArea: number) {
   }
 }
 
-export { renderGrid, toggleCell };
+function resetGrid() {
+  for (let i = 0; cells.current.length > i; i++) {
+    const cell = cells.current[i];
+
+    cell.graphic.context = cell.deadContext;
+
+    cell.isAlive = false;
+  }
+}
+
+export { renderGrid, toggleCell, resetGrid };
