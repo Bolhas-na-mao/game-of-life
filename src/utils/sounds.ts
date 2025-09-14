@@ -12,6 +12,7 @@ function add() {
   if (registered) return;
   sound.add(alias.hover, "assets/sounds/hover.mp3");
   sound.add(alias.click, "assets/sounds/click.mp3");
+  sound.add(alias.background, "assets/sounds/background.mp3");
   registered = true;
 }
 
