@@ -32,11 +32,19 @@ export async function setupButton() {
 }
 
 async function loadTextures() {
-  startTexture = await Assets.load("assets/start_button.png");
-  pauseTexture = await Assets.load("assets/pause_button.png");
-  controlsTexture = await Assets.load("assets/controls_button.png");
-  infoTexture = await Assets.load("assets/info_button.png");
-  restartTexture = await Assets.load("assets/restart_button.png");
+  const [start, pause, controlsTex, info, restart] = await Promise.all([
+    Assets.load("assets/start_button.png"),
+    Assets.load("assets/pause_button.png"),
+    Assets.load("assets/controls_button.png"),
+    Assets.load("assets/info_button.png"),
+    Assets.load("assets/restart_button.png"),
+  ]);
+
+  startTexture = start;
+  pauseTexture = pause;
+  controlsTexture = controlsTex;
+  infoTexture = info;
+  restartTexture = restart;
 }
 
 function createButtonContainer() {
