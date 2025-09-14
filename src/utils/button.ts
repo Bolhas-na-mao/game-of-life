@@ -14,13 +14,13 @@ function addProperties(sprite: Sprite) {
   sprite.cursor = "pointer";
 
   sprite.on("pointerenter", () => {
-    (gsap.to(sprite.scale, {
+    gsap.to(sprite.scale, {
       duration: 0.2,
       x: baseScale * 1.05,
       y: baseScale * 1.05,
       ease: "power1.inOut",
-    }),
-      sound.play(sounds.alias.hover));
+    });
+    sound.play(sounds.alias.hover);
   });
 
   sprite.on("pointerleave", () =>
