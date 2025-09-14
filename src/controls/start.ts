@@ -2,7 +2,7 @@ import { sound } from "@pixi/sound";
 import { createNextGen } from "../engine/cell";
 import { updateButton } from "../renderer/button";
 import { game } from "../state/game";
-import { renderGrid, resetGrid } from "../renderer/cell";
+import { resetGrid } from "../renderer/cell";
 import { sounds } from "../utils/sounds";
 
 function start() {
@@ -29,8 +29,6 @@ function restart() {
   sound.play(sounds.alias.click);
 
   resetGrid();
-
-  renderGrid(14);
 
   updateButton(game.status);
 }
