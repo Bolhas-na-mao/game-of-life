@@ -67,6 +67,7 @@ function createButtons() {
   restartButtonSprite.position.set(centerX + BUTTON_SPACING * 1.65, buttonY);
   button.addProperties(restartButtonSprite);
   buttonContainer.addChild(restartButtonSprite);
+  restartButtonSprite.on("pointertap", controls.restart);
 }
 
 export function getButtons() {
