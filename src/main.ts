@@ -12,9 +12,9 @@ import { sound } from "@pixi/sound";
 
   renderGrid(14);
 
-  setupButton();
-
   sounds.add();
+
+  setupButton();
 
   sound.play(sounds.alias.background);
 })();
