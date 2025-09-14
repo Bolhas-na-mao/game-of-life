@@ -3,6 +3,7 @@ import colors from "./ui/colors";
 import { setupButton } from "./renderer/button";
 import { app } from "./app";
 import { sounds } from "./utils/sounds";
+import { sound } from "@pixi/sound";
 
 (async () => {
   await app.init({ background: colors.background, resizeTo: window });
@@ -14,4 +15,6 @@ import { sounds } from "./utils/sounds";
   setupButton();
 
   sounds.add();
+
+  sound.play(sounds.alias.background);
 })();
