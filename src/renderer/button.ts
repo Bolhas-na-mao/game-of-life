@@ -1,6 +1,6 @@
 import { Assets, Container, Sprite, type Texture } from "pixi.js";
 import { button } from "../utils/button";
-import { controls } from "../controls/start";
+import { controls } from "../controls/controls";
 import type { Status } from "../types/game";
 import { app } from "../app";
 
