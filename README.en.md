@@ -1,4 +1,4 @@
-# 🧬 Game of Life
+# ⬜ Game of Life
 
 > Languages: [Português (BR)](README.md) | **English**
 

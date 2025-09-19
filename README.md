@@ -1,4 +1,4 @@
-# Jogo da Vida
+# ⬜ Jogo da Vida
 
 > Línguas: **Português (BR)** | [English](README.en.md)
 
