@@ -16,5 +16,5 @@ import { sound } from "@pixi/sound";
 
   setupButton();
 
-  sound.play(sounds.alias.background);
+  sound.play(sounds.alias.background, { loop: true, singleInstance: true });
 })();
