@@ -36,7 +36,7 @@ Porque é viciante ver ordem surgir do caos. Porque dá pra entender conceitos d
 
 ## Para saber mais
 
-- [Conway's Game of Life - Wikipedia](https://pt.wikipedia.org/wiki/Jogo_da_vida_de_Conway)
+- [Conway's Game of Life - Wikipedia](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
 - [LifeWiki - Enciclopédia de padrões](https://conwaylife.com/wiki/)
 - [Artigo original de Conway](https://web.stanford.edu/class/sts145/Library/life.pdf)
 
