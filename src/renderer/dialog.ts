@@ -1,15 +1,19 @@
 import { Assets, Container, Sprite } from "pixi.js";
 import { app } from "../app";
+import { gsap } from "gsap";
+
+let dialogContainer: Container;
+let dialogSprite: Sprite;
 
 export async function setupDialog() {
   const centerX = app.screen.width / 2;
   const centerY = app.screen.height / 2;
 
-  let dialogContainer = new Container();
+  dialogContainer = new Container();
   dialogContainer.zIndex = 0;
   const dialog = await Assets.load("assets/info_dialog.png");
 
-  const dialogSprite = new Sprite(dialog);
+  dialogSprite = new Sprite(dialog);
 
   const maxWidth = app.screen.width * 0.9;
   const maxHeight = app.screen.height * 0.9;
@@ -26,4 +30,29 @@ export async function setupDialog() {
   dialogContainer.addChild(dialogSprite);
 
   app.stage.addChild(dialogContainer);
+}
+
+export function showDialog() {
+  if (dialogContainer && dialogSprite) {
+    dialogContainer.zIndex = 2;
+
+    gsap.to(dialogSprite, {
+      alpha: 1,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  }
+}
+
+export function hideDialog() {
+  if (dialogContainer && dialogSprite) {
+    gsap.to(dialogSprite, {
+      alpha: 0,
+      duration: 0.3,
+      ease: "power2.out",
+      onComplete: () => {
+        dialogContainer.zIndex = 0;
+      },
+    });
+  }
 }
