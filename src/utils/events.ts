@@ -33,8 +33,6 @@ function pointerOver(cellIndex: number) {
 }
 
 function pointerUp(cellIndex: number) {
-  hideDialog();
-
   if (!hasMovedDuringPress && dragToggleState !== null) {
     toggleCell(cellIndex);
   }
