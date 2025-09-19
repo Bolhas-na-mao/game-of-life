@@ -1,4 +1,5 @@
 import { toggleCell } from "../renderer/cell";
+import { hideDialog } from "../renderer/dialog";
 import { cells } from "../state/cell";
 import { game } from "../state/game";
 
@@ -7,6 +8,8 @@ let dragToggleState: boolean | null = null;
 let hasMovedDuringPress = false;
 
 function pointerDown(cellIndex: number) {
+  hideDialog();
+
   if (game.status === "running") return;
 
   const currentCell = cells.current[cellIndex];
@@ -30,6 +33,8 @@ function pointerOver(cellIndex: number) {
 }
 
 function pointerUp(cellIndex: number) {
+  hideDialog();
+
   if (!hasMovedDuringPress && dragToggleState !== null) {
     toggleCell(cellIndex);
   }
