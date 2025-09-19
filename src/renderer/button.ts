@@ -3,6 +3,7 @@ import { button } from "../utils/button";
 import { controls } from "../controls/controls";
 import type { Status } from "../types/game";
 import { app } from "../app";
+import { showDialog } from "./dialog";
 
 let buttonContainer: Container;
 let mainButtonSprite: Sprite;
@@ -63,6 +64,7 @@ function createButtons() {
   infoButtonSprite = new Sprite(infoTexture);
   infoButtonSprite.position.set(centerX - BUTTON_SPACING, buttonY);
   button.addProperties(infoButtonSprite);
+  infoButtonSprite.on("pointertap", showDialog);
   buttonContainer.addChild(infoButtonSprite);
 
   // temporário enquanto controles não são implementados
