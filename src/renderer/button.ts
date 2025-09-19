@@ -23,6 +23,11 @@ const BUTTON_Y_POSITION_RATIO = 1.15;
 export async function setupButton() {
   await loadTextures();
 
+  if (buttonContainer && buttonContainer.parent) {
+    buttonContainer.parent.removeChild(buttonContainer);
+    buttonContainer.destroy({ children: true });
+  }
+
   createButtonContainer();
 
   createButtons();
@@ -33,6 +38,10 @@ export async function setupButton() {
 }
 
 async function loadTextures() {
+  const hasTextures =
+    startTexture && pauseTexture && infoTexture && restartTexture;
+  if (hasTextures) return;
+
   const [start, pause, info, restart] = await Promise.all([
     Assets.load("assets/start_button.png"),
     Assets.load("assets/pause_button.png"),
@@ -97,6 +106,8 @@ export function getButtons() {
 }
 
 export function updateButton(status: Status) {
+  if (!mainButtonSprite) return;
+
   mainButtonSprite.off("pointertap");
 
   if (status === "running") {
