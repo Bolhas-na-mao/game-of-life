@@ -6,11 +6,16 @@ let dialogContainer: Container;
 let dialogSprite: Sprite;
 
 export async function setupDialog() {
+  if (dialogContainer && dialogContainer.parent) {
+    dialogContainer.parent.removeChild(dialogContainer);
+    dialogContainer.destroy({ children: true });
+  }
+
   const centerX = app.screen.width / 2;
   const centerY = app.screen.height / 2;
 
   dialogContainer = new Container();
-  dialogContainer.zIndex = 0;
+  dialogContainer.zIndex = -1;
   const dialog = await Assets.load("assets/info_dialog.png");
 
   dialogSprite = new Sprite(dialog);
