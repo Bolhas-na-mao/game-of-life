@@ -1,10 +1,10 @@
-# 🧬 Jogo da Vida
+# Jogo da Vida
 
-O **Jogo da Vida** não é bem um jogo, ninguém ganha, ninguém perde, e você nem controla diretamente as peças. Ele é uma **simulação** criada pelo matemático **John Conway** em 1970.
+> Línguas: **Português (BR)** | [English](README.en.md)
 
----
+O **Jogo da Vida** não é bem um jogo, ninguém ganha, ninguém perde, e você nem controla diretamente as peças. Ele é uma **simulação** criada pelo matemático **[John Horton Conway](https://pt.wikipedia.org/wiki/John_Horton_Conway)** em 1970.
 
-## 🎮 Como funciona?
+## Como funciona?
 
 O mundo é uma grade de quadradinhos (as "células").
 
@@ -13,40 +13,31 @@ Cada célula pode estar em um de dois estados:
 - **Viva** → um quadrado aceso.
 - **Morta** → um quadrado apagado.
 
-O tempo passa em **rodadas** (ou “gerações”). A cada rodada, todas as células são atualizadas de acordo com as mesmas regras.
+O tempo passa em **rodadas** (ou "gerações"). A cada rodada, todas as células são atualizadas de acordo com as mesmas regras.
 
----
+## As regras
 
-## 📜 As regras
+As atualizações acontecem **simultaneamente** para todas as células a cada geração, considerando as **8 vizinhas ao redor** (vizinhança de Moore).
 
 1. Uma célula viva com menos de **2 vizinhas vivas** morre (isolada).
-
 2. Uma célula viva com mais de **3 vizinhas vivas** morre (superlotada).
-
 3. Uma célula viva com **2 ou 3 vizinhas vivas** continua viva.
-
 4. Uma célula morta com exatamente **3 vizinhas vivas** se torna viva (nasce).
 
----
+## Padrões clássicos pra testar
 
-## ✨ O que você pode fazer
+- **Bloco** → um quadrado 2x2 que nunca muda. [(LifeWiki: Block)](https://conwaylife.com/wiki/Block)
+- **Blinker** → três células em linha que oscilam pra sempre. [(LifeWiki: Blinker)](https://conwaylife.com/wiki/Blinker)
+- **Glider** → um padrão que "caminha" pela tela. [(LifeWiki: Glider)](https://conwaylife.com/wiki/Glider)
 
-- **Desenhar padrões** na grade, clicando pra acender células vivas.
-- **Dar play** e ver como a população evolui.
-- **Testar combinações estranhas**, algumas viram estáveis, outras explodem em caos.
+## Por que brincar com isso?
 
----
+Porque é viciante ver ordem surgir do caos. Porque dá pra entender conceitos de **sistemas complexos, autômatos celulares e até biologia**. E porque, sinceramente, é divertido perder alguns minutos vendo um monte de quadradinhos dançando.
 
-## 🔎 Alguns clássicos pra testar
+## Para saber mais
 
-- **Bloco** → um quadrado 2x2 que nunca muda.
-- **Blinker** → três células em linha que oscilam pra sempre.
-- **Glider** → um padrão que “caminha” pela tela.
+- [Conway's Game of Life - Wikipedia](https://pt.wikipedia.org/wiki/Jogo_da_vida_de_Conway)
+- [LifeWiki - Enciclopédia de padrões](https://conwaylife.com/wiki/)
+- [Artigo original de Conway](https://web.stanford.edu/class/sts145/Library/life.pdf)
 
----
-
-## 💡 Por que brincar com isso?
-
-Porque é viciante ver ordem surgir do caos.
-Porque dá pra entender conceitos de **sistemas complexos, autômatos celulares e até biologia**.
-E porque, sinceramente, é divertido perder alguns minutos vendo um monte de quadradinhos dançando.
+_"O universo é não apenas mais estranho do que imaginamos, mas mais estranho do que podemos imaginar."_ - J.B.S. Haldane
