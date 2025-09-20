@@ -3,16 +3,17 @@ import { button } from "../utils/button";
 import { controls } from "../controls/controls";
 import type { Status } from "../types/game";
 import { app } from "../app";
+import { showDialog } from "./dialog";
 
 let buttonContainer: Container;
 let mainButtonSprite: Sprite;
 let infoButtonSprite: Sprite;
-let controlsButtonSprite: Sprite;
+// let controlsButtonSprite: Sprite;
 let restartButtonSprite: Sprite;
 
 let startTexture: Texture;
 let pauseTexture: Texture;
-let controlsTexture: Texture;
+// let controlsTexture: Texture;
 let infoTexture: Texture;
 let restartTexture: Texture;
 
@@ -21,6 +22,11 @@ const BUTTON_Y_POSITION_RATIO = 1.15;
 
 export async function setupButton() {
   await loadTextures();
+
+  if (buttonContainer && buttonContainer.parent) {
+    buttonContainer.parent.removeChild(buttonContainer);
+    buttonContainer.destroy({ children: true });
+  }
 
   createButtonContainer();
 
@@ -32,17 +38,20 @@ export async function setupButton() {
 }
 
 async function loadTextures() {
-  const [start, pause, controlsTex, info, restart] = await Promise.all([
+  const hasTextures =
+    startTexture && pauseTexture && infoTexture && restartTexture;
+  if (hasTextures) return;
+
+  const [start, pause, info, restart] = await Promise.all([
     Assets.load("assets/start_button.png"),
     Assets.load("assets/pause_button.png"),
-    Assets.load("assets/controls_button.png"),
     Assets.load("assets/info_button.png"),
     Assets.load("assets/restart_button.png"),
   ]);
 
   startTexture = start;
   pauseTexture = pause;
-  controlsTexture = controlsTex;
+  // controlsTexture = controlsTex;
   infoTexture = info;
   restartTexture = restart;
 }
@@ -64,15 +73,23 @@ function createButtons() {
   infoButtonSprite = new Sprite(infoTexture);
   infoButtonSprite.position.set(centerX - BUTTON_SPACING, buttonY);
   button.addProperties(infoButtonSprite);
+  infoButtonSprite.on("pointertap", showDialog);
   buttonContainer.addChild(infoButtonSprite);
 
-  controlsButtonSprite = new Sprite(controlsTexture);
-  controlsButtonSprite.position.set(centerX + BUTTON_SPACING, buttonY);
-  button.addProperties(controlsButtonSprite);
-  buttonContainer.addChild(controlsButtonSprite);
+  // temporário enquanto controles não são implementados
+  //  controlsButtonSprite = new Sprite(controlsTexture);
+  //  controlsButtonSprite.position.set(centerX + BUTTON_SPACING, buttonY);
+  //  button.addProperties(controlsButtonSprite);
+  //  buttonContainer.addChild(controlsButtonSprite);
+
+  //  restartButtonSprite = new Sprite(restartTexture);
+  //  restartButtonSprite.position.set(centerX + BUTTON_SPACING * 1.65, buttonY);
+  //  button.addProperties(restartButtonSprite);
+  //  buttonContainer.addChild(restartButtonSprite);
+  //  restartButtonSprite.on("pointertap", controls.restart);
 
   restartButtonSprite = new Sprite(restartTexture);
-  restartButtonSprite.position.set(centerX + BUTTON_SPACING * 1.65, buttonY);
+  restartButtonSprite.position.set(centerX + BUTTON_SPACING, buttonY);
   button.addProperties(restartButtonSprite);
   buttonContainer.addChild(restartButtonSprite);
   restartButtonSprite.on("pointertap", controls.restart);
@@ -82,13 +99,15 @@ export function getButtons() {
   return {
     main: mainButtonSprite,
     info: infoButtonSprite,
-    controls: controlsButtonSprite,
+    // controls: controlsButtonSprite,
     restart: restartButtonSprite,
     container: buttonContainer,
   };
 }
 
 export function updateButton(status: Status) {
+  if (!mainButtonSprite) return;
+
   mainButtonSprite.off("pointertap");
 
   if (status === "running") {

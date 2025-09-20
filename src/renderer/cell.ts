@@ -75,7 +75,24 @@ function renderRow(squareArea: number, index: number) {
   }
 }
 
+function clearGrid() {
+  for (let i = 0; i < cells.current.length; i++) {
+    const cell = cells.current[i];
+    if (cell.graphic.parent) {
+      cell.graphic.parent.removeChild(cell.graphic);
+    }
+    cell.graphic.destroy();
+  }
+
+  cells.current = [];
+
+  app.stage.off("pointerup", eventHandler.globalPointerUp);
+  app.stage.off("pointerupoutside", eventHandler.globalPointerUp);
+}
+
 function renderGrid(squareArea: number) {
+  clearGrid();
+
   const amountOfRows = Math.ceil(app.screen.height / squareArea);
 
   cells.columnLength = amountOfRows;
