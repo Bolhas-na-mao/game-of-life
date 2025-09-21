@@ -64,6 +64,7 @@ export async function setupDialog() {
 export function showDialog() {
   if (dialogContainer && dialogSprite && closeButtonSprite) {
     dialogContainer.zIndex = 2;
+    dialogContainer.eventMode = "static";
 
     gsap.to([dialogSprite, closeButtonSprite], {
       alpha: 1,
@@ -81,6 +82,7 @@ export function hideDialog() {
       ease: "power2.out",
       onComplete: () => {
         dialogContainer.zIndex = 0;
+        dialogContainer.eventMode = "none";
       },
     });
   }
