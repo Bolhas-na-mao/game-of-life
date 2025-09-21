@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 
 let dialogContainer: Container;
 let dialogSprite: Sprite;
+let closeButtonSprite: Sprite;
 
 export async function setupDialog() {
   if (dialogContainer && dialogContainer.parent) {
@@ -16,7 +17,11 @@ export async function setupDialog() {
 
   dialogContainer = new Container();
   dialogContainer.zIndex = -1;
-  const dialog = await Assets.load("assets/info_dialog.png");
+
+  const [dialog, closeButton] = await Promise.all([
+    Assets.load("assets/info_dialog.png"),
+    Assets.load("assets/close_button.png"),
+  ]);
 
   dialogSprite = new Sprite(dialog);
 
@@ -34,14 +39,34 @@ export async function setupDialog() {
   dialogSprite.alpha = 0;
   dialogContainer.addChild(dialogSprite);
 
+  closeButtonSprite = new Sprite(closeButton);
+  closeButtonSprite.eventMode = "static";
+
+  closeButtonSprite.cursor = "pointer";
+
+  closeButtonSprite.anchor.set(1.5, -0.5);
+
+  const dialogBounds = dialogSprite.getBounds();
+  closeButtonSprite.position.set(
+    dialogBounds.x + dialogBounds.width,
+    dialogBounds.y
+  );
+  closeButtonSprite.alpha = 0;
+
+  closeButtonSprite.scale.set(0.05);
+  closeButtonSprite.on("pointertap", hideDialog);
+
+  dialogContainer.addChild(closeButtonSprite);
+
   app.stage.addChild(dialogContainer);
 }
 
 export function showDialog() {
-  if (dialogContainer && dialogSprite) {
+  if (dialogContainer && dialogSprite && closeButtonSprite) {
     dialogContainer.zIndex = 2;
+    dialogContainer.eventMode = "static";
 
-    gsap.to(dialogSprite, {
+    gsap.to([dialogSprite, closeButtonSprite], {
       alpha: 1,
       duration: 0.3,
       ease: "power2.out",
@@ -50,13 +75,14 @@ export function showDialog() {
 }
 
 export function hideDialog() {
-  if (dialogContainer && dialogSprite) {
-    gsap.to(dialogSprite, {
+  if (dialogContainer && dialogSprite && closeButtonSprite) {
+    gsap.to([dialogSprite, closeButtonSprite], {
       alpha: 0,
       duration: 0.3,
       ease: "power2.out",
       onComplete: () => {
         dialogContainer.zIndex = 0;
+        dialogContainer.eventMode = "none";
       },
     });
   }
