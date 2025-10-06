@@ -4,7 +4,7 @@ const current: Cell[] = [];
 
 const next: Cell[] = [];
 
-let rowLength = 0;
-let columnLength = 0;
+const rowLength = 0;
+const columnLength = 0;
 
 export const cells = { current, next, rowLength, columnLength };

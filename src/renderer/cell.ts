@@ -27,7 +27,7 @@ function renderCell(squareArea: number, verticalShift: number, index: number) {
     horizontalShift,
     verticalShift,
     squareArea,
-    squareArea
+    squareArea,
   );
 
   const deadContext = base
@@ -44,7 +44,7 @@ function renderCell(squareArea: number, verticalShift: number, index: number) {
     horizontalShift,
     verticalShift,
     squareArea,
-    squareArea
+    squareArea,
   );
 
   cells.current.push({

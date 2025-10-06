@@ -21,7 +21,7 @@ import { constants } from "./utils/constants";
 
   setupDialog();
 
-  handleResize()
+  handleResize();
 
   sound.play(sounds.alias.background, { loop: true, singleInstance: true });
 })();

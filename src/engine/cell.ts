@@ -51,7 +51,7 @@ function checkNeighbors(index: number) {
     neighbors.bottomRight = -1;
   }
 
-  for (let neighbor of Object.values(neighbors)) {
+  for (const neighbor of Object.values(neighbors)) {
     let status;
 
     if (!neighbor || neighbor < 0) {
