@@ -29,7 +29,7 @@ function addProperties(sprite: Sprite) {
       x: baseScale,
       y: baseScale,
       ease: "power1.inOut",
-    })
+    }),
   );
 }
 

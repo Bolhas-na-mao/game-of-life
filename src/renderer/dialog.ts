@@ -49,7 +49,7 @@ export async function setupDialog() {
   const dialogBounds = dialogSprite.getBounds();
   closeButtonSprite.position.set(
     dialogBounds.x + dialogBounds.width,
-    dialogBounds.y
+    dialogBounds.y,
   );
   closeButtonSprite.alpha = 0;
 
