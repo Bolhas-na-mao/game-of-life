@@ -36,10 +36,6 @@ Updates happen **simultaneously** for all cells each generation, considering the
 - **Blinker** → three cells in a line that oscillate forever. [(LifeWiki: Blinker)](https://conwaylife.com/wiki/Blinker)
 - **Glider** → a pattern that "walks" across the screen. [(LifeWiki: Glider)](https://conwaylife.com/wiki/Glider)
 
-## Why play with this?
-
-Because it's addictive to watch order emerge from chaos. Because you can understand concepts of **complex systems, cellular automata, and even biology**. And because, honestly, it's fun to lose a few minutes watching a bunch of little squares dancing.
-
 ## To learn more
 
 - [Conway's Game of Life - Wikipedia](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
