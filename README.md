@@ -30,10 +30,6 @@ As atualizações acontecem **simultaneamente** para todas as células a cada ge
 - **Blinker** → três células em linha que oscilam pra sempre. [(LifeWiki: Blinker)](https://conwaylife.com/wiki/Blinker)
 - **Glider** → um padrão que "caminha" pela tela. [(LifeWiki: Glider)](https://conwaylife.com/wiki/Glider)
 
-## Por que brincar com isso?
-
-Porque é viciante ver ordem surgir do caos. Porque dá pra entender conceitos de **sistemas complexos, autômatos celulares e até biologia**. E porque, sinceramente, é divertido perder alguns minutos vendo um monte de quadradinhos dançando.
-
 ## Para saber mais
 
 - [Conway's Game of Life - Wikipedia](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
